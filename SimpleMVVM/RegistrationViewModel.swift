@@ -5,10 +5,9 @@
 //
 //===----------------------------------------------------------------------===//
 
+import Foundation
 import Observation
 import Combine
-import SwiftUI  // Color Image
-import PhotosUI // PhotoPickerItem
 
 @Observable final class RegistrationViewModel {
     var state = State()
@@ -49,12 +48,13 @@ extension RegistrationViewModel {
             !email.isEmpty
         }
         
-        var avatarColor: Color = .contentBackground
-        var avatarImage: Image?
-        var selectedPhotoItem: PhotosPickerItem?
+        var avatarColor: (Float, Float, Float, Float)?
+        var avatarImage: Data?
     }
     
     enum Action {
+        case setAvatarColor((Float, Float, Float, Float))
+        case setAvatarImage(Data)
         case signUp
         case signUpSuccess
     }
@@ -92,6 +92,12 @@ extension RegistrationViewModel {
     
     func reduce(into state: inout State, action: Action) -> Effect<Action> {
         switch action {
+        case .setAvatarColor(let color):
+            state.avatarColor = color
+            return Effect(operation: .none)
+        case .setAvatarImage(let data):
+            state.avatarImage = data
+            return Effect(operation: .none)
         case .signUp:
             // 1. update state
             state.isSignUping = true

@@ -9,17 +9,29 @@ import SwiftUI
 import PhotosUI
 
 struct RegistrationView: View {
+    @Environment(\.self) var environment
     @Bindable var viewModel = RegistrationViewModel()
 
+    @State private var selectedPhotoItem: PhotosPickerItem?
+    @State private var avatarColor: Color = .contentBackground
+
     var body: some View {
+        let color = { () -> Color in
+            if let components = viewModel.state.avatarColor {
+                let (r, g, b, a) = components
+                return Color(Color.Resolved(colorSpace: .sRGB, red: r, green: g, blue: b, opacity: a))
+            }
+            return Color.contentBackground
+        }()
+
         VStack {
             ScrollView {
                 LazyVStack(spacing: 20) {
                     RegistrationAvatarView(
                         title: "Avatar",
-                        image: $viewModel.state.avatarImage,
-                        color: viewModel.state.avatarColor,
-                        selectedPhotoItem: $viewModel.state.selectedPhotoItem
+                        data: viewModel.state.avatarImage,
+                        color: color,
+                        selectedPhotoItem: $selectedPhotoItem
                     )
                     
                     RegistrationInputView(title: "First Name", text: $viewModel.state.firstName)
@@ -31,7 +43,7 @@ struct RegistrationView: View {
                         UIColorWellHelper.helper.execute?()
                     }
                     .background(
-                        ColorPicker("Set the avatar color", selection: $viewModel.state.avatarColor)
+                        ColorPicker("Set the avatar color", selection: $avatarColor)
                             .labelsHidden()
                             .opacity(0)
                     )
@@ -51,6 +63,17 @@ struct RegistrationView: View {
         }
         .padding(.horizontal)
         .navigationTitle("Registration")
+        .onChange(of: selectedPhotoItem, initial: false) { _, newItem in
+            Task {
+                if let imageData = try? await newItem?.loadTransferable(type: Data.self) {
+                    viewModel.send(.setAvatarImage(imageData))
+                }
+            }
+        }
+        .onChange(of: avatarColor, initial: false) { oldValue, newValue in
+            let resolved = newValue.resolve(in: environment)
+            viewModel.send(.setAvatarColor((resolved.red, resolved.green, resolved.blue, resolved.opacity)))
+        }
     }
 }
 

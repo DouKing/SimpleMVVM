@@ -10,9 +10,18 @@ import PhotosUI
 
 struct RegistrationAvatarView: View {
     let title: String
-    @Binding var image: Image?
+    let image: Image?
+    let data: Data?
     let color: Color?
     @Binding var selectedPhotoItem: PhotosPickerItem?
+    
+    init(title: String, image: Image? = nil, data: Data? = nil, color: Color? = nil, selectedPhotoItem: Binding<PhotosPickerItem?>) {
+        self.title = title
+        self.image = image
+        self.data = data
+        self.color = color
+        self._selectedPhotoItem = selectedPhotoItem
+    }
 
     var body: some View {
         let _ = Self._printChanges()
@@ -34,7 +43,9 @@ struct RegistrationAvatarView: View {
                         .frame(width: 100, height: 100)
                     
                     VStack {
-                        if let image {
+                        if let data, let uiImage = UIImage(data: data) {
+                            Image(uiImage: uiImage).resizable()
+                        } else if let image {
                             image.resizable()
                         }
                     }
@@ -47,13 +58,6 @@ struct RegistrationAvatarView: View {
             .border()
         }
         .controlSize(.large)
-        .onChange(of: selectedPhotoItem, initial: false) { _, newItem in
-            Task {
-                if let image = try? await newItem?.loadTransferable(type: Image.self) {
-                    self.image = image
-                }
-            }
-        }
     }
 }
 
@@ -61,5 +65,5 @@ struct RegistrationAvatarView: View {
     @State var selectedPhotoItem: PhotosPickerItem?
     @State var image: Image? = Image("avatar")
     
-    return RegistrationAvatarView(title: "Avatar", image: $image, color: .contentBackground, selectedPhotoItem: $selectedPhotoItem)
+    return RegistrationAvatarView(title: "Avatar", image: image, color: .contentBackground, selectedPhotoItem: $selectedPhotoItem)
 }
