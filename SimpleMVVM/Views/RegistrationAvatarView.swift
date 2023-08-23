@@ -15,6 +15,8 @@ struct RegistrationAvatarView: View {
     @Binding var selectedPhotoItem: PhotosPickerItem?
 
     var body: some View {
+        let _ = Self._printChanges()
+
         PhotosPicker(
             selection: $selectedPhotoItem,
             matching: .any(of: [.images])
@@ -45,7 +47,7 @@ struct RegistrationAvatarView: View {
             .border()
         }
         .controlSize(.large)
-        .onChange(of: selectedPhotoItem) { newItem in
+        .onChange(of: selectedPhotoItem, initial: false) { _, newItem in
             Task {
                 if let image = try? await newItem?.loadTransferable(type: Image.self) {
                     self.image = image

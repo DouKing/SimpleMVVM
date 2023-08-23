@@ -9,53 +9,38 @@ import SwiftUI
 import PhotosUI
 
 struct RegistrationView: View {
-    // TODO: Move to view model
-    @State private var firstName: String = ""
-    @State private var lastName: String = ""
-    @State private var phoneNumber: String = ""
-    @State private var email: String = ""
-    
-    @State private var avatarColor: Color = .contentBackground
-    @State private var selectedPhotoItem: PhotosPickerItem?
-    @State private var selectedImage: Image?
-    
+    @Bindable var viewModel = RegistrationViewModel()
+
     var body: some View {
         VStack {
             ScrollView {
                 LazyVStack(spacing: 20) {
                     RegistrationAvatarView(
                         title: "Avatar",
-                        image: $selectedImage,
-                        color: avatarColor,
-                        selectedPhotoItem: $selectedPhotoItem
+                        image: $viewModel.state.avatarImage,
+                        color: viewModel.state.avatarColor,
+                        selectedPhotoItem: $viewModel.state.selectedPhotoItem
                     )
                     
-                    RegistrationInputView(title: "First Name", text: $firstName)
-                    RegistrationInputView(title: "Last Name", text: $lastName)
-                    RegistrationInputView(title: "Phone Number", text: $phoneNumber)
-                    RegistrationInputView(title: "Email", text: $email)
+                    RegistrationInputView(title: "First Name", text: $viewModel.state.firstName)
+                    RegistrationInputView(title: "Last Name", text: $viewModel.state.lastName)
+                    RegistrationInputView(title: "Phone Number", text: $viewModel.state.phoneNumber)
+                    RegistrationInputView(title: "Email", text: $viewModel.state.email)
                     
                     RegistrationSelectButton(title: "Custom Avatar Color") {
                         UIColorWellHelper.helper.execute?()
                     }
                     .background(
-                        ColorPicker("Set the avatar color", selection: $avatarColor)
+                        ColorPicker("Set the avatar color", selection: $viewModel.state.avatarColor)
                             .labelsHidden()
                             .opacity(0)
                     )
                     
-                    Button("Sign Up") {
-                        Task {
-                            await Mock(
-                                firstName: firstName,
-                                lastName: lastName,
-                                phoneNumber: phoneNumber,
-                                email: email
-                            )
-                            .send()
-                        }
+                    Button(viewModel.state.isSignUping ? "Loading..." : "Sign Up") {
+                        viewModel.send(.signUp)
                     }
-                    .foregroundStyle(Color.primary)
+                    .disabled(!viewModel.state.isSignUpEnable)
+                    .foregroundStyle(viewModel.state.isSignUpEnable ? Color.primary : Color.gray)
                     .font(.headline)
                     .padding()
                     .frame(maxWidth: .infinity)

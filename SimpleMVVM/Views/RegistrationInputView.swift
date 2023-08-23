@@ -13,6 +13,8 @@ struct RegistrationInputView: View {
     @FocusState private var focused: Bool
     
     var body: some View {
+        let _ = Self._printChanges()
+
         HStack {
             Text(title)
                 .font(.headline)
