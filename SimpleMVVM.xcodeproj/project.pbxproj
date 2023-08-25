@@ -25,6 +25,16 @@
 		52018F222A9649FC0034C399 /* Mock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F202A9649FB0034C399 /* Mock.swift */; };
 		52018F232A9649FC0034C399 /* APIManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F212A9649FB0034C399 /* APIManager.swift */; };
 		52018F252A9656630034C399 /* RegistrationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F242A9656630034C399 /* RegistrationViewModel.swift */; };
+		52018F272A9892A10034C399 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F262A9892A10034C399 /* SignUpViewController.swift */; };
+		52018F292A9897CA0034C399 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F282A9897CA0034C399 /* Reusable.swift */; };
+		52018F2F2A98983E0034C399 /* UITextField+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F2B2A98983E0034C399 /* UITextField+Publisher.swift */; };
+		52018F302A98983E0034C399 /* Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F2C2A98983E0034C399 /* Binder.swift */; };
+		52018F312A98983E0034C399 /* CombineWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F2D2A98983E0034C399 /* CombineWrapper.swift */; };
+		52018F322A98983E0034C399 /* UIControl+Publisher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F2E2A98983E0034C399 /* UIControl+Publisher.swift */; };
+		52018F362A98985C0034C399 /* TextFieldContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F332A98985C0034C399 /* TextFieldContentConfiguration.swift */; };
+		52018F372A98985C0034C399 /* AvatarContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F342A98985C0034C399 /* AvatarContentConfiguration.swift */; };
+		52018F382A98985C0034C399 /* SelectColorContentConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F352A98985C0034C399 /* SelectColorContentConfiguration.swift */; };
+		52018F3D2A98F2CD0034C399 /* SignUpViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 52018F3C2A98F2CD0034C399 /* SignUpViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -67,6 +77,16 @@
 		52018F202A9649FB0034C399 /* Mock.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.swift; sourceTree = "<group>"; };
 		52018F212A9649FB0034C399 /* APIManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIManager.swift; sourceTree = "<group>"; };
 		52018F242A9656630034C399 /* RegistrationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationViewModel.swift; sourceTree = "<group>"; };
+		52018F262A9892A10034C399 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
+		52018F282A9897CA0034C399 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		52018F2B2A98983E0034C399 /* UITextField+Publisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITextField+Publisher.swift"; sourceTree = "<group>"; };
+		52018F2C2A98983E0034C399 /* Binder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Binder.swift; sourceTree = "<group>"; };
+		52018F2D2A98983E0034C399 /* CombineWrapper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CombineWrapper.swift; sourceTree = "<group>"; };
+		52018F2E2A98983E0034C399 /* UIControl+Publisher.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIControl+Publisher.swift"; sourceTree = "<group>"; };
+		52018F332A98985C0034C399 /* TextFieldContentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TextFieldContentConfiguration.swift; sourceTree = "<group>"; };
+		52018F342A98985C0034C399 /* AvatarContentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AvatarContentConfiguration.swift; sourceTree = "<group>"; };
+		52018F352A98985C0034C399 /* SelectColorContentConfiguration.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SelectColorContentConfiguration.swift; sourceTree = "<group>"; };
+		52018F3C2A98F2CD0034C399 /* SignUpViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -117,13 +137,14 @@
 		52018EE02A9648DE0034C399 /* SimpleMVVM */ = {
 			isa = PBXGroup;
 			children = (
+				52018F2A2A98983E0034C399 /* Combine */,
 				52018F1F2A9649FB0034C399 /* Network */,
 				52018F1C2A9649DA0034C399 /* Extensions */,
-				52018F132A96499C0034C399 /* Views */,
+				52018F132A96499C0034C399 /* SwiftUI */,
+				52018F392A98AE740034C399 /* UIKit */,
 				52018EE12A9648DE0034C399 /* AppDelegate.swift */,
 				52018EE32A9648DE0034C399 /* SceneDelegate.swift */,
 				52018EE52A9648DE0034C399 /* ViewController.swift */,
-				52018F242A9656630034C399 /* RegistrationViewModel.swift */,
 				52018EE72A9648DE0034C399 /* Main.storyboard */,
 				52018EEA2A9648E30034C399 /* Assets.xcassets */,
 				52018EEC2A9648E30034C399 /* LaunchScreen.storyboard */,
@@ -149,7 +170,7 @@
 			path = SimpleMVVMUITests;
 			sourceTree = "<group>";
 		};
-		52018F132A96499C0034C399 /* Views */ = {
+		52018F132A96499C0034C399 /* SwiftUI */ = {
 			isa = PBXGroup;
 			children = (
 				52018F162A9649A70034C399 /* CornerRadiusModifier.swift */,
@@ -157,14 +178,16 @@
 				52018F152A9649A70034C399 /* RegistrationInputView.swift */,
 				52018F172A9649A70034C399 /* RegistrationSelectButton.swift */,
 				52018F112A9649410034C399 /* RegistrationView.swift */,
+				52018F242A9656630034C399 /* RegistrationViewModel.swift */,
 			);
-			path = Views;
+			path = SwiftUI;
 			sourceTree = "<group>";
 		};
 		52018F1C2A9649DA0034C399 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
 				52018F1D2A9649DA0034C399 /* UIColorWellExtension.swift */,
+				52018F282A9897CA0034C399 /* Reusable.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -176,6 +199,29 @@
 				52018F202A9649FB0034C399 /* Mock.swift */,
 			);
 			path = Network;
+			sourceTree = "<group>";
+		};
+		52018F2A2A98983E0034C399 /* Combine */ = {
+			isa = PBXGroup;
+			children = (
+				52018F2C2A98983E0034C399 /* Binder.swift */,
+				52018F2D2A98983E0034C399 /* CombineWrapper.swift */,
+				52018F2E2A98983E0034C399 /* UIControl+Publisher.swift */,
+				52018F2B2A98983E0034C399 /* UITextField+Publisher.swift */,
+			);
+			path = Combine;
+			sourceTree = "<group>";
+		};
+		52018F392A98AE740034C399 /* UIKit */ = {
+			isa = PBXGroup;
+			children = (
+				52018F262A9892A10034C399 /* SignUpViewController.swift */,
+				52018F3C2A98F2CD0034C399 /* SignUpViewModel.swift */,
+				52018F342A98985C0034C399 /* AvatarContentConfiguration.swift */,
+				52018F352A98985C0034C399 /* SelectColorContentConfiguration.swift */,
+				52018F332A98985C0034C399 /* TextFieldContentConfiguration.swift */,
+			);
+			path = UIKit;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -309,17 +355,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				52018F362A98985C0034C399 /* TextFieldContentConfiguration.swift in Sources */,
 				52018F1B2A9649A70034C399 /* RegistrationSelectButton.swift in Sources */,
+				52018F372A98985C0034C399 /* AvatarContentConfiguration.swift in Sources */,
 				52018F252A9656630034C399 /* RegistrationViewModel.swift in Sources */,
 				52018F222A9649FC0034C399 /* Mock.swift in Sources */,
+				52018F2F2A98983E0034C399 /* UITextField+Publisher.swift in Sources */,
 				52018F182A9649A70034C399 /* RegistrationAvatarView.swift in Sources */,
+				52018F272A9892A10034C399 /* SignUpViewController.swift in Sources */,
 				52018EE62A9648DE0034C399 /* ViewController.swift in Sources */,
+				52018F312A98983E0034C399 /* CombineWrapper.swift in Sources */,
+				52018F292A9897CA0034C399 /* Reusable.swift in Sources */,
+				52018F382A98985C0034C399 /* SelectColorContentConfiguration.swift in Sources */,
 				52018F232A9649FC0034C399 /* APIManager.swift in Sources */,
 				52018EE22A9648DE0034C399 /* AppDelegate.swift in Sources */,
 				52018EE42A9648DE0034C399 /* SceneDelegate.swift in Sources */,
+				52018F322A98983E0034C399 /* UIControl+Publisher.swift in Sources */,
+				52018F302A98983E0034C399 /* Binder.swift in Sources */,
 				52018F192A9649A70034C399 /* RegistrationInputView.swift in Sources */,
 				52018F1E2A9649DA0034C399 /* UIColorWellExtension.swift in Sources */,
 				52018F122A9649410034C399 /* RegistrationView.swift in Sources */,
+				52018F3D2A98F2CD0034C399 /* SignUpViewModel.swift in Sources */,
 				52018F1A2A9649A70034C399 /* CornerRadiusModifier.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -5,13 +5,15 @@
 //
 //===----------------------------------------------------------------------===//
 
-import Foundation
+#if canImport(UIKit)
+
+import UIKit
 import Combine
 
-protocol APIManager {
-    func send() async
+extension CombineWrapper where Base: UITextField {
+    public var text: AnyPublisher<String?, Never> {
+		return controlEvent([.allEditingEvents, .valueChanged]).map({ $0.text }).eraseToAnyPublisher()
+	}
 }
 
-protocol SignUpAPI {
-    func signUp(firstName: String, lastName: String, email: String) -> AnyPublisher<Bool, Never>
-}
+#endif
