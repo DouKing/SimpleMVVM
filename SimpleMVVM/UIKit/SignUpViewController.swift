@@ -58,9 +58,6 @@ class SignUpViewController: UIViewController {
     private var selectColorCancel: Cancellable?
     private var bag: Set<AnyCancellable> = []
     private let viewModel: SignUpViewModel
-    
-    private let updateImage = PassthroughSubject<Data?, Never>()
-    private let updateColor = PassthroughSubject<(CGFloat, CGFloat, CGFloat, CGFloat)?, Never>()
 
     private lazy var tableView: UITableView = {
         let this = UITableView(frame: .zero, style: .insetGrouped)
@@ -87,17 +84,23 @@ class SignUpViewController: UIViewController {
     }()
     
     private lazy var footerView: UIView = {
-        let this = UIView(frame: CGRect(origin: .zero, size: .init(width: 0, height: 100)))
+        let this = UIView(frame: CGRect(origin: .zero, size: .init(width: 100, height: 100)))
         return this
     }()
     
+    // static table view cell configs
     private var avatar = AvatarContentConfiguration(title: "Avatar")
     private var selectColor = SelectColorContentConfiguration(title: "Custom Avatar Color")
     private var firstName = TextFieldContentConfiguration(title: "FirstName", value: "")
     private var lastName = TextFieldContentConfiguration(title: "LastName", value: "")
     private var phoneNumber = TextFieldContentConfiguration(title: "PhoneNumber", value: "")
     private var email = TextFieldContentConfiguration(title: "Email", value: "")
+    
+    private let updateImage = PassthroughSubject<Data?, Never>()
+    private let updateColor = PassthroughSubject<(CGFloat, CGFloat, CGFloat, CGFloat)?, Never>()
 }
+
+// MARK: - Data Source
 
 extension SignUpViewController {
     private func configureDataSource() {
@@ -164,7 +167,8 @@ extension SignUpViewController {
             color: self.updateColor.eraseToAnyPublisher(),
             tap: self.signUpButton.combine.controlEvent(.touchUpInside).map { _ in () }.eraseToAnyPublisher()
         )
-        
+            
+        // fix combineLatest
         self.updateColor.send(nil)
         self.updateImage.send(nil)
     }
@@ -184,6 +188,11 @@ extension SignUpViewController {
         case .email:
             return self.email
         }
+    }
+}
+
+extension SignUpViewController {
+    private class DataSource: UITableViewDiffableDataSource<SectionType, ItemType> {
     }
 }
 
@@ -208,6 +217,7 @@ extension SignUpViewController {
             }
             .bind(to: self.updateColor)
         
+        picker.sheetPresentationController?.detents = [.medium(), .large()]
         self.present(picker, animated: true, completion: nil)
     }
     
@@ -225,10 +235,7 @@ extension SignUpViewController {
     }
 }
 
-extension SignUpViewController {
-    private class DataSource: UITableViewDiffableDataSource<SectionType, ItemType> {
-    }
-}
+// MARK: - UITableViewDelegate
 
 extension SignUpViewController: UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

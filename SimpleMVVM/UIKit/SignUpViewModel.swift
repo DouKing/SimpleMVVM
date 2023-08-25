@@ -24,7 +24,7 @@ protocol SignUpViewModelOutput {
     var isSignUpEnable: AnyPublisher<Bool, Never> { get }
     var isSignUping: AnyPublisher<Bool, Never> { get }
     var isSignUpFinish: AnyPublisher<Bool, Never> { get }
-    var updateAvatar: PassthroughSubject<(Data?, (CGFloat, CGFloat, CGFloat, CGFloat)?), Never> { get }
+    var updateAvatar: AnyPublisher<(Data?, (CGFloat, CGFloat, CGFloat, CGFloat)?), Never> { get }
     
     var avatarColor: (CGFloat, CGFloat, CGFloat, CGFloat)? { get }
 }
@@ -35,10 +35,9 @@ final class DefaultSignUpViewModel: SignUpViewModel {
     private let isSignUpEnableSubject = PassthroughSubject<Bool, Never>()
     private let isSignUpingSubject = PassthroughSubject<Bool, Never>()
     private let isSignUpFinishSubject = PassthroughSubject<Bool, Never>()
-    private var signUpEnableCancel: Cancellable?
+    private let updateAvatarSubject = PassthroughSubject<(Data?, (CGFloat, CGFloat, CGFloat, CGFloat)?), Never>()
     private var bag: Set<AnyCancellable> = []
     
-    var updateAvatar = PassthroughSubject<(Data?, (CGFloat, CGFloat, CGFloat, CGFloat)?), Never>()
     var avatarColor: (CGFloat, CGFloat, CGFloat, CGFloat)?
     
     var isSignUpEnable: AnyPublisher<Bool, Never> {
@@ -51,6 +50,10 @@ final class DefaultSignUpViewModel: SignUpViewModel {
     
     var isSignUpFinish: AnyPublisher<Bool, Never> {
         self.isSignUpFinishSubject.eraseToAnyPublisher()
+    }
+    
+    var updateAvatar: AnyPublisher<(Data?, (CGFloat, CGFloat, CGFloat, CGFloat)?), Never> {
+        self.updateAvatarSubject.eraseToAnyPublisher()
     }
 }
 
@@ -90,7 +93,7 @@ extension DefaultSignUpViewModel {
                 self?.avatarColor = value.1
                 return value
             }
-            .bind(to: self.updateAvatar)
+            .bind(to: self.updateAvatarSubject)
             .store(in: &self.bag)
     }
 }
